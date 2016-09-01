@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Bicycle</string>
+    <string name="action_share">分享</string>
+    <string name="action_about">关于</string>
+    <string name="action_exit">退出</string>
+    <string name="copy">车次复制成功！</string>
+    <string name="iChina">伏羲六十四卦</string>
+    <string name="base_64">Base64</string>
+    <string name="morse_code">Morse码</string>
+    <string name="error_msg">磁力链格式错误</string>
+    <string name="empty_msg">待解码的内容空缺</string>
+    <string name="short_url">短链生成</string>
+    <string name="endode">解码</string>
+    <string name="decode">编码</string>
+    <string name="nothing_copy">你想复制啥?_？</string>
+    <string name="error_net">网址格式错误</string>
+    <string name="sourse_error">格式不匹配</string>
+</resources>
