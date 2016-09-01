@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.share:
 //                Toast.makeText(this, "share", Toast.LENGTH_LONG).show();
-                Utils.share(this, "分享项目地址", "https://github.com/fangx/ZhiHuMVP");
+                Utils.share(this, "分享项目地址", "https://github.com/paradoxie/Bicycle");
                 break;
             case R.id.about:
                 Toast.makeText(this, "about", Toast.LENGTH_LONG).show();

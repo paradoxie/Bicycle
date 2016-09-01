@@ -65,7 +65,7 @@ public class Utils {
         share.setType("text/plain");
         //noinspection deprecation
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        share.putExtra(Intent.EXTRA_TEXT,Title + " " + Url + " 分享自知乎网");
+        share.putExtra(Intent.EXTRA_TEXT,Title + " " + Url + " 分享自自行车");
         context.startActivity(Intent.createChooser(share, "分享到"));
     }
 }
