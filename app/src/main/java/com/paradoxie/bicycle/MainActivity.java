@@ -1,7 +1,6 @@
 package com.paradoxie.bicycle;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,7 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.share:
 //                Toast.makeText(this, "share", Toast.LENGTH_LONG).show();
-                share(this, "分享项目地址", "https://github.com/fangx/ZhiHuMVP");
+                Utils.share(this, "分享项目地址", "https://github.com/fangx/ZhiHuMVP");
                 break;
             case R.id.about:
                 Toast.makeText(this, "about", Toast.LENGTH_LONG).show();
@@ -202,15 +201,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    //分享
-    public void share(Context context, String Title, String Url) {
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
-        share.setType("text/plain");
-        //noinspection deprecation
-        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        share.putExtra(Intent.EXTRA_TEXT,Title + " " + Url + " 分享自知乎网");
-        context.startActivity(Intent.createChooser(share, "分享到"));
-    }
+
     //Toast信息类
     private void myToast(final String str) {
         mHandler.post(new Runnable() {

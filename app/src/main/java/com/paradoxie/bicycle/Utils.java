@@ -3,6 +3,9 @@ package com.paradoxie.bicycle;
  * Created by xiehehe on 16/8/22.
  */
 
+import android.content.Context;
+import android.content.Intent;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -54,5 +57,15 @@ public class Utils {
         Matcher m = p.matcher(s);
         boolean b = m.matches();
         return b;
+    }
+
+    //分享
+    public static void share(Context context, String Title, String Url) {
+        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        share.setType("text/plain");
+        //noinspection deprecation
+        share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
+        share.putExtra(Intent.EXTRA_TEXT,Title + " " + Url + " 分享自知乎网");
+        context.startActivity(Intent.createChooser(share, "分享到"));
     }
 }
