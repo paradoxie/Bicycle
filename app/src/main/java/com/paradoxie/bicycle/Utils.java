@@ -17,6 +17,12 @@ import java.util.regex.Pattern;
  */
 public class Utils {
 
+    /**
+     * 编码验证:是否为磁力链
+     *
+     * @param s
+     * @return
+     */
     public static boolean isLink(String s) {
         if (s.contains("magnet:?")) {
             return true;
@@ -24,11 +30,24 @@ public class Utils {
         return false;
     }
 
+    /**
+     * 是否为伏羲码
+     *
+     * @param s
+     * @return
+     */
     public static boolean isIChina(String s) {
-        Pattern p = Pattern.compile("^[\\u3400-\\u9FFF]+$");
-        Matcher m = p.matcher(s);
-        boolean b = m.matches();
-        return b;
+        if (s.contains("magnet:?")) {
+            return false;
+        } else {
+            Pattern p = Pattern.compile("[\u4e00-\u9fa5]");
+            Matcher matcher = p.matcher(s);
+            boolean flg = false;
+            if (matcher.find()) {
+                flg = true;
+            }
+            return flg;
+        }
     }
 
     /**
@@ -38,34 +57,59 @@ public class Utils {
      * @return
      */
     public static boolean isMorse(String s) {
-
-        if (s.contains(".") || s.contains("-")) {
-            return true;
+        if (s.contains("magnet:?")) {
+            return false;
+        } else {
+            if (s.contains(".") && s.contains("-")) {
+                return true;
+            }
+            return false;
         }
-        return false;
     }
 
+    /**
+     * 是否为Base64
+     *
+     * @param s
+     * @return
+     */
     public static boolean isBase64(String s) {
-        Pattern p = Pattern.compile("^[A-ZA-Z0-9 + /] {3} =）$");
-        Matcher m = p.matcher(s);
-        boolean b = m.matches();
-        return b;
+        if (s.contains("magnet:?")) {
+            return false;
+        } else {
+            if (s.length() % 4 == 0)
+                return true;
+            return false;
+        }
     }
 
+    /**
+     * 是否是网址
+     *
+     * @param s
+     * @return
+     */
     public static boolean isNet(String s) {
-        Pattern p = Pattern.compile("[a-zA-z]+://[^\\s]*");
+        Pattern p = Pattern.compile("^([hH][tT]{2}[pP]://|[hH][tT]{2}[pP][sS]://)" +
+                "(([A-Za-z0-9-~]+).)+([A-Za-z0-9-~\\\\/])+$");
         Matcher m = p.matcher(s);
         boolean b = m.matches();
         return b;
     }
 
-    //分享
+    /**
+     * 分享功能
+     *
+     * @param context
+     * @param Title
+     * @param Url
+     */
     public static void share(Context context, String Title, String Url) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
         //noinspection deprecation
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-        share.putExtra(Intent.EXTRA_TEXT,Title + " " + Url + " 分享自自行车");
+        share.putExtra(Intent.EXTRA_TEXT, Title + " " + Url + " 分享自Bycicle");
         context.startActivity(Intent.createChooser(share, "分享到"));
     }
 }
