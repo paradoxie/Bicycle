@@ -1,4 +1,4 @@
-package com.paradoxie.bicycle;
+package com.paradoxie.bicycle.Util;
 /**
  * Created by xiehehe on 16/8/22.
  */

@@ -1,4 +1,4 @@
-package com.paradoxie.bicycle.HideIME;/**
+package com.paradoxie.bicycle.Util.HideIME;/**
  * Created by xiehehe on 16/8/22.
  */
 

@@ -1,4 +1,4 @@
-package com.paradoxie.bicycle;/**
+package com.paradoxie.bicycle.UI;/**
  * Created by xiehehe on 16/9/2.
  */
 
@@ -9,6 +9,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import com.paradoxie.bicycle.R;
 
 /**
  * User: xiehehe

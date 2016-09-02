@@ -1,4 +1,4 @@
-package com.paradoxie.bicycle;
+package com.paradoxie.bicycle.UI;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,10 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.paradoxie.bicycle.HideIME.HideIMEUtil;
+import com.paradoxie.bicycle.Util.HideIME.HideIMEUtil;
+import com.paradoxie.bicycle.R;
+import com.paradoxie.bicycle.Util.TransManager;
+import com.paradoxie.bicycle.Util.Utils;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
