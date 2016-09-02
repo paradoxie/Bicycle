@@ -1,6 +1,7 @@
 package com.paradoxie.bicycle;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,9 +12,11 @@ import android.support.v7.widget.Toolbar;
 import android.text.ClipboardManager;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -40,23 +43,44 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String mStringBefore, mStringAfter;
     private Button mButton_expalin, mButton_translate, mButton_url;
     private ProgressBar progressBar;
+    private FrameLayout mFrameLayout;
     private MaterialSpinner spinner;
     private TransManager mTransManager = new TransManager();
     private Handler mHandler = new Handler();
     private static Boolean isExit = false;
+    private String[] welcome_array;
     //百度生成短网址请求地址
     private static final String CREATE_SHORT_URL = "http://dwz.cn/create.php";
-    //百度还原短网址请求地址
-    private static final String QUERY_SHORT_URL = "http://dwz.cn/query.php";
 
+    //百度还原短网址请求地址private static final String QUERY_SHORT_URL = "http://dwz.cn/query.php";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         HideIMEUtil.wrap(this);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         mEditText = (EditText) findViewById(R.id.et_code);
+        mEditText.setHint(getRandomWelcomeTips());
+        mFrameLayout = (FrameLayout) findViewById(R.id.main_framelayout);
+        mFrameLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                float startX = 0, offsetX;
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        offsetX = event.getX() - startX;
+                        if (Math.abs(offsetX) > 100) {
+                            mEditText.setText("");
+                        }
+                        break;
+                }
+                return true;
+            }
+        });
         mButton_expalin = (Button) findViewById(R.id.btn_explain);
         mButton_expalin.setOnClickListener(this);
         mButton_translate = (Button) findViewById(R.id.btn_translate);
@@ -100,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Utils.share(this, "An exciting tool for old drivers!!项目地址:", "https://github.com/paradoxie/Bicycle");
                 break;
             case R.id.about:
-                Toast.makeText(this, "about", Toast.LENGTH_LONG).show();
+                //                Toast.makeText(this, "about", Toast.LENGTH_LONG).show();
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
             case R.id.exit:
                 finish();
@@ -183,6 +208,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    private String getRandomWelcomeTips() {
+        String welcome_tip = null;
+        welcome_array = this.getResources().getStringArray(R.array.tips);
+        int index = (int) (Math.random() * (welcome_array.length - 1));
+        welcome_tip = welcome_array[index];
+        return welcome_tip;
+    }
+
     //生成短链接
     class AT extends AsyncTask {
         @Override
@@ -213,7 +246,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
             return null;
         }
-
     }
 
     //Toast信息类
