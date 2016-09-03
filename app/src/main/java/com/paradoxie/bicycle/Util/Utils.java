@@ -140,7 +140,7 @@ public class Utils {
      * @param Title
      * @param Url
      */
-    public static vfixoid share(Context context, String Title, String Url) {
+    public static void share(Context context, String Title, String Url) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
