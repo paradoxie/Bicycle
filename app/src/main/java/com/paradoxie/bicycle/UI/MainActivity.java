@@ -10,6 +10,8 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.ClipboardManager;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
@@ -18,11 +20,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.paradoxie.bicycle.Util.HideIME.HideIMEUtil;
 import com.paradoxie.bicycle.R;
+import com.paradoxie.bicycle.Util.HideIME.HideIMEUtil;
 import com.paradoxie.bicycle.Util.TransManager;
 import com.paradoxie.bicycle.Util.Utils;
 
@@ -51,6 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TransManager mTransManager = new TransManager();
     private Handler mHandler = new Handler();
     private static Boolean isExit = false;
+    private int clickNum = 0;
     private String[] welcome_array;
     //百度生成短网址请求地址
     private static final String CREATE_SHORT_URL = "http://dwz.cn/create.php";
@@ -62,9 +64,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         HideIMEUtil.wrap(this);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openBy10Click();
+            }
+        });
         setSupportActionBar(toolbar);
+
         mEditText = (EditText) findViewById(R.id.et_code);
         mEditText.setHint(getRandomWelcomeTips());
+        mEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (mEditText.getText().toString().equals("1024")) {
+                    mEditText.setText("www.t66y.com");//跳转打开绅士网
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
         mFrameLayout = (FrameLayout) findViewById(R.id.main_framelayout);
         mFrameLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -123,11 +148,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         switch (id) {
             case R.id.share:
-                //                Toast.makeText(this, "share", Toast.LENGTH_LONG).show();
                 Utils.share(this, "An exciting tool for old drivers!!项目地址:", "https://github.com/paradoxie/Bicycle");
                 break;
             case R.id.about:
-                //                Toast.makeText(this, "about", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(MainActivity.this, AboutActivity.class));
                 break;
             case R.id.exit:
@@ -258,7 +281,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             public void run() {
                 if (progressBar.getVisibility() == View.VISIBLE)
                     progressBar.setVisibility(View.GONE);
-                Toast.makeText(MainActivity.this, str, Toast.LENGTH_SHORT).show();
+                Utils.showShort(MainActivity.this, str);
             }
         });
     }
@@ -285,7 +308,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (isExit == false) {
             isExit = true;
             // 准备退出
-            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            //            Toast.makeText(this, "再按一次退出程序", Toast.LENGTH_SHORT).show();
+            Utils.showShort(this, "再按一次退出程序");
             tExit = new Timer();
             tExit.schedule(new TimerTask() {
                 @Override
@@ -296,6 +320,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         } else {
             finish();
             System.exit(0);
+        }
+    }
+
+    private void openBy10Click() {
+        Timer openTimer = null;
+        if (clickNum < 10) {
+            if (clickNum > 6) {
+                //                Toast.makeText(this, "再按"+(10-clickNum)+"次开启彩蛋", Toast.LENGTH_SHORT).show();
+                Utils.showShort(this, "再按" + (10 - clickNum) + "次开启彩蛋");
+            }
+            clickNum++;
+            openTimer = new Timer();
+            openTimer.schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    clickNum = 0;
+                }
+            }, 5000);
+        } else {
+            Utils.showShort(this, "开启成功");
+            clickNum = 0;
         }
     }
 }

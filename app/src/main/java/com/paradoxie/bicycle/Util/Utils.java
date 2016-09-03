@@ -5,6 +5,7 @@ package com.paradoxie.bicycle.Util;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -16,6 +17,9 @@ import java.util.regex.Pattern;
  * FIXME
  */
 public class Utils {
+    public static boolean isShow = true;
+    private static Toast mToast;
+
 
     /**
      * 编码验证:是否为磁力链
@@ -98,16 +102,47 @@ public class Utils {
     }
 
     /**
+     * Toast显示优化
+     * @param context
+     * @param message
+     */
+    public static void showShort(Context context,CharSequence message) {
+
+        if (isShow && message != null && !Utils.isStrNull(message + ""))
+            if (mToast == null) {
+                mToast = Toast.makeText(context, message, Toast.LENGTH_SHORT);
+            } else {
+                mToast.setText(message);
+            }
+        mToast.show();
+    }
+
+    /**
+     * 判断为空,可以empty替换??
+     * @param str
+     * @return
+     */
+    public static boolean isStrNull(String str) {
+        if (null == str) {
+            return true;
+        } else if ("".equals(str.trim())) {
+            return true;
+        } else if ("null".equals(str.trim())) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * 分享功能
-     *
      * @param context
      * @param Title
      * @param Url
      */
-    public static void share(Context context, String Title, String Url) {
+    public static vfixoid share(Context context, String Title, String Url) {
         Intent share = new Intent(android.content.Intent.ACTION_SEND);
         share.setType("text/plain");
-        //noinspection deprecation
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         share.putExtra(Intent.EXTRA_TEXT, Title + " " + Url + " 分享自Bycicle");
         context.startActivity(Intent.createChooser(share, "分享到"));
