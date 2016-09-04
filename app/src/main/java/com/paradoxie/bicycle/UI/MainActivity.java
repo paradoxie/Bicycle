@@ -2,6 +2,7 @@ package com.paradoxie.bicycle.UI;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -56,6 +57,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String[] welcome_array;
     //百度生成短网址请求地址
     private static final String CREATE_SHORT_URL = "http://dwz.cn/create.php";
+    //彩蛋1
+    private static final String EGG_1 = "https://btso.pw/tags";
+    private static final String EGG_2 = "http://dwz.cn/2wnhQ";
+
 
     //百度还原短网址请求地址private static final String QUERY_SHORT_URL = "http://dwz.cn/query.php";
     @Override
@@ -82,7 +87,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (mEditText.getText().toString().equals("1024")) {
-                    mEditText.setText("www.t66y.com");//跳转打开绅士网
+                    mEditText.setText("");//跳转打开绅士网
+                    openEgg(EGG_2);
                 }
             }
 
@@ -327,7 +333,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Timer openTimer = null;
         if (clickNum < 10) {
             if (clickNum > 6) {
-                //                Toast.makeText(this, "再按"+(10-clickNum)+"次开启彩蛋", Toast.LENGTH_SHORT).show();
                 Utils.showShort(this, "再按" + (10 - clickNum) + "次开启彩蛋");
             }
             clickNum++;
@@ -340,7 +345,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }, 5000);
         } else {
             Utils.showShort(this, "开启成功");
+            openEgg(EGG_1);
             clickNum = 0;
         }
+    }
+
+    private void openEgg(String s) {
+        final Uri uri = Uri.parse(s);
+        final Intent it = new Intent(Intent.ACTION_VIEW, uri);
+        startActivity(it);
     }
 }
