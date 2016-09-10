@@ -43,6 +43,8 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private EditText mEditText;
     private String mStringBefore, mStringAfter;
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static Boolean isExit = false;
     private int clickNum = 0;
     private String[] welcome_array;
+    private String content;
     //百度生成短网址请求地址
     private static final String CREATE_SHORT_URL = "http://dwz.cn/create.php";
     //彩蛋1
@@ -68,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         HideIMEUtil.wrap(this);
+        JPushInterface.init(getApplicationContext());
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +80,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         setSupportActionBar(toolbar);
-
         mEditText = (EditText) findViewById(R.id.et_code);
         mEditText.setHint(getRandomWelcomeTips());
+
+        Bundle bundle = getIntent().getExtras();
+        if (null != bundle) {
+            content = bundle.getString(JPushInterface.EXTRA_ALERT);
+            mEditText.setText(content);
+        }
+
         mEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

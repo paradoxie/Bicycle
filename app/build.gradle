@@ -7,9 +7,22 @@ android {
     defaultConfig {
         applicationId "com.paradoxie.bicycle"
         minSdkVersion 14
-        targetSdkVersion 24
+        targetSdkVersion 22
         versionCode 1
         versionName "1.0"
+
+
+        ndk {
+            //选择要添加的对应cpu类型的.so库。
+            abiFilters 'armeabi', 'armeabi-v7a', 'armeabi-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME : applicationId,
+                JPUSH_APPKEY : "2a8b5bcd511ad3c1f8881f72", //JPush上注册的包名对应的appkey.
+                JPUSH_CHANNEL : "developer-default", //暂时填写默认值即可.
+        ]
     }
     buildTypes {
         release {
@@ -26,4 +39,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile 'com.jaredrummler:material-spinner:1.0.4'
+    compile 'cn.jiguang:jpush:2.1.8'  // 此处以SDK 2.1.8版本为例
 }

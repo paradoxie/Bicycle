@@ -21,6 +21,7 @@
     <string name="about_3">3.感谢开源项目：Android开发人员不得不收集的代码 \n项目地址：https://github.com/Blankj/AndroidUtilCode</string>
     <string name="about_4">4.感谢某小弟提♂供的启动页面切图\nGithub主页:https://github.com/Yzker</string>
     <string name="about_5">5.本软件本软件纯属技术交流，一切后果作者概不负责.</string>
+    <string name="about_6">copyfault By Paradoxie</string>
 
     <string-array name="tips">
         <item>tip:屏幕左右滑动都可以清除文本框里面的内容哈~</item>
@@ -32,7 +33,7 @@
         <item>tip:点击右下角的那个悬浮图标可以直接复制文本框里面的内容呢~</item>
         <item>tip:营养快线+卫生纸????</item>
         <item>tip:我也不晓得这个界面为啥子是这个颜色!</item>
-        <item>tip:彩蛋提示:都跟10有关</item>
+        <item>tip:彩蛋提示:都跟10有关且都需要浏览器跳转打开滴~</item>
         <item>tip:彩蛋提示:其中一个需要科学上网,/嘘~</item>
 
     </string-array>
