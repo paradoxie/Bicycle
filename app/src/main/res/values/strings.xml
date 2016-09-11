@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Bicycle</string>
     <string name="action_share">分享</string>
+    <string name="action_theme_1">日间</string>
+    <string name="action_theme_2">夜间</string>
     <string name="action_about">关于</string>
     <string name="action_exit">退出</string>
     <string name="copy">车次复制成功！</string>

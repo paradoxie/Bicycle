@@ -39,5 +39,5 @@ dependencies {
     compile 'com.android.support:appcompat-v7:24.1.1'
     compile 'com.android.support:design:24.1.1'
     compile 'com.jaredrummler:material-spinner:1.0.4'
-    compile 'cn.jiguang:jpush:2.1.8'  // 此处以SDK 2.1.8版本为例
+    compile 'cn.jiguang:jpush:2.1.8'  // 极光推送 2.1.8版本为例
 }

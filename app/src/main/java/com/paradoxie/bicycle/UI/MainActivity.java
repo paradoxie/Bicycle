@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.text.ClipboardManager;
 import android.text.Editable;
@@ -163,6 +164,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id) {
+            case R.id.theme:
+                item.setTitle(R.string.action_theme_2);
+                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                recreate();
+                break;
             case R.id.share:
                 Utils.share(this, "An exciting tool for old drivers!!项目地址:", "https://github.com/paradoxie/Bicycle");
                 break;

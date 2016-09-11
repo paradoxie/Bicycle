@@ -5,9 +5,9 @@ package com.paradoxie.bicycle.UI;/**
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.paradoxie.bicycle.R;
@@ -18,7 +18,7 @@ import com.paradoxie.bicycle.R;
  * Time: 20:38
  * FIXME
  */
-public class SplashActivity extends Activity {
+public class SplashActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
