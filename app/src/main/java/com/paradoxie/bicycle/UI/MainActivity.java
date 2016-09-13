@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.AppCompatSpinner;
 import android.support.v7.widget.Toolbar;
 import android.text.ClipboardManager;
 import android.text.Editable;
@@ -23,7 +24,6 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ProgressBar;
 
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.paradoxie.bicycle.R;
 import com.paradoxie.bicycle.Util.HideIME.HideIMEUtil;
 import com.paradoxie.bicycle.Util.TransManager;
@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mButton_expalin, mButton_translate, mButton_url;
     private ProgressBar progressBar;
     private FrameLayout mFrameLayout;
-    private MaterialSpinner spinner;
+    private AppCompatSpinner spinner;
     private TransManager mTransManager = new TransManager();
     private Handler mHandler = new Handler();
     private static Boolean isExit = false;
@@ -150,8 +150,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
 
-        spinner = (MaterialSpinner) findViewById(R.id.spinner);
-        spinner.setItems(getString(R.string.iChina), getString(R.string.base_64), getString(R.string.morse_code));
+        spinner = (AppCompatSpinner) findViewById(R.id.spinner);
+        //        spinner.set(getString(R.string.iChina), getString(R.string.base_64), getString(R.string.morse_code));
     }
 
     @Override
@@ -165,9 +165,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int id = item.getItemId();
         switch (id) {
             case R.id.theme:
-                item.setTitle(R.string.action_theme_2);
-                getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-                recreate();
+                if (item.getTitle().toString().equals("夜间")) {
+//                    item.setTitle(R.string.action_theme_1);//日间
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);//切换夜间模式
+                    recreate();
+                }else {
+//                    item.setTitle(R.string.action_theme_2);//日间
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);//切换日间模式
+                    recreate();
+                }
                 break;
             case R.id.share:
                 Utils.share(this, "An exciting tool for old drivers!!项目地址:", "https://github.com/paradoxie/Bicycle");
@@ -190,7 +196,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_explain://解码:密码-->明文
                 mStringAfter = mEditText.getText().toString();
                 if (!mStringAfter.isEmpty()) {
-                    if (spinner.getText().equals("伏羲六十四卦")) {
+                    if (spinner.getContentDescription().toString().equals("伏羲六十四卦")) {
                         if (Utils.isIChina(mStringAfter)) {
                             mStringBefore = mTransManager.ToCode(TransManager.iChina, mStringAfter);
                             mEditText.setText(mStringBefore);
@@ -198,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Snackbar.make(view, R.string.sourse_error, Snackbar.LENGTH_SHORT)
                                     .setAction("Action", null).show();
                         }
-                    } else if (spinner.getText().equals("Base64")) {
+                    } else if (spinner.getContentDescription().toString().equals("Base64")) {
                         if (Utils.isBase64(mStringAfter)) {
                             mStringBefore = TransManager.base64Decode2String(TransManager.base64Decode(mStringAfter));
                             mEditText.setText(mStringBefore);
@@ -206,7 +212,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                             Snackbar.make(view, R.string.sourse_error, Snackbar.LENGTH_SHORT)
                                     .setAction("Action", null).show();
                         }
-                    } else if (spinner.getText().equals("Morse码")) {
+                    } else if (spinner.getContentDescription().toString().equals("Morse码")) {
                         if (Utils.isMorse(mStringAfter)) {
                             mStringBefore = mTransManager.ToCode(TransManager.morseCode, mStringAfter);
                             mEditText.setText(mStringBefore);
@@ -224,11 +230,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_translate://编码:明文-->密码
                 mStringBefore = mEditText.getText().toString();
                 if (Utils.isLink(mStringBefore)) {
-                    if (spinner.getText().equals("伏羲六十四卦")) {
+                    if (spinner.getContentDescription().toString().equals("伏羲六十四卦")) {
                         mStringAfter = mTransManager.codeTo(TransManager.iChina, mStringBefore);
-                    } else if (spinner.getText().equals("Base64")) {
+                    } else if (spinner.getContentDescription().toString().equals("Base64")) {
                         mStringAfter = TransManager.base64Encode2String(TransManager.base64Encode(mStringBefore));
-                    } else if (spinner.getText().equals("Morse码")) {
+                    } else if (spinner.getContentDescription().toString().equals("Morse码")) {
                         mStringAfter = mTransManager.codeTo(TransManager.morseCode, mStringBefore);
                     }
                     mEditText.setText(mStringAfter);

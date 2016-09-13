@@ -25,6 +25,12 @@
     <string name="about_5">5.本软件本软件纯属技术交流，一切后果作者概不负责.</string>
     <string name="about_6">copyfault By Paradoxie</string>
 
+    <string-array name="code">
+        <item >伏羲六十四卦</item>
+        <item >Base64</item>
+        <item >Morse码</item>
+    </string-array>
+
     <string-array name="tips">
         <item>tip:屏幕左右滑动都可以清除文本框里面的内容哈~</item>
         <item>tip:走起走起!开车开车!!</item>
